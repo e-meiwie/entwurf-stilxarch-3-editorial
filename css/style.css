@@ -1,0 +1,558 @@
+/* ==========================================================================
+   STIL x Architektur - Entwurf 3 "hell und typografisch"
+   Weisse Seite, grosse Serifenschrift, viel Weissraum. Das Orange des Logos
+   bleibt Akzent, tritt aber deutlich zurueck. Keine externen Schriften:
+   Georgia beziehungsweise die jeweilige Systemserife.
+   ========================================================================== */
+
+:root {
+  --papier:      #fbfaf7;   /* warmes Weiss als Seitengrund */
+  --papier-tief: #f2eee7;   /* abgesetzte Baender */
+  --tusche:      #1c1a17;   /* Text */
+  --tusche-matt: #5f5952;   /* Nebentext, 6.4:1 auf --papier */
+  --linie:       #ded7cc;
+  --linie-fein:  #ebe6dd;
+  --akzent:      #b85100;   /* Logo-Orange abgedunkelt, 4.7:1 auf --papier */
+  --akzent-voll: #ff6600;   /* nur fuer Flaechen und Striche */
+  --weiss:       #ffffff;
+
+  --serife: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+  --grotesk: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --breite: 1180px;
+  --schmal: 760px;
+  --luft: clamp(3.5rem, 8vw, 7rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--tusche);
+  font-family: var(--grotesk);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--akzent); text-underline-offset: 0.18em; }
+a:hover { color: var(--tusche); }
+
+:focus-visible { outline: 2px solid var(--akzent); outline-offset: 3px; }
+
+h1, h2, h3 {
+  font-family: var(--serife);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--tusche);
+}
+
+.mitte {
+  width: 100%;
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+.schmal { max-width: var(--schmal); }
+
+.sprunglink {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--tusche);
+  color: var(--papier);
+  padding: 0.7rem 1.1rem;
+  z-index: 100;
+}
+.sprunglink:focus { left: 0; color: var(--papier); }
+
+/* --- Kopf ---------------------------------------------------------------- */
+
+.kopf {
+  border-bottom: 1px solid var(--linie-fein);
+  background: var(--papier);
+}
+.kopf__innen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.4rem;
+  padding-bottom: 1.4rem;
+}
+
+.marke {
+  font-family: var(--serife);
+  font-size: 1.45rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--tusche);
+  /* darf schrumpfen - sonst schiebt die gesperrte Unterzeile die Seite
+     auf schmalen Bildschirmen ueber den rechten Rand hinaus */
+  flex: 0 1 auto;
+  min-width: 0;
+  line-height: 1.1;
+}
+.marke__x { color: var(--akzent-voll); font-style: italic; }
+.marke__zusatz {
+  display: block;
+  font-family: var(--grotesk);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--tusche-matt);
+  margin-top: 0.3rem;
+}
+
+.menueknopf {
+  display: none;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid var(--linie);
+  background: transparent;
+  color: var(--tusche);
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+}
+.menueknopf__balken,
+.menueknopf__balken::before,
+.menueknopf__balken::after {
+  display: block;
+  width: 17px;
+  height: 1px;
+  background: var(--tusche);
+}
+.menueknopf__balken { position: relative; }
+.menueknopf__balken::before,
+.menueknopf__balken::after { content: ""; position: absolute; left: 0; }
+.menueknopf__balken::before { top: -5px; }
+.menueknopf__balken::after  { top: 5px; }
+
+.hauptmenue__liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.4rem 1.6rem;
+}
+.hauptmenue__link {
+  text-decoration: none;
+  color: var(--tusche-matt);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid transparent;
+}
+.hauptmenue__link:hover { color: var(--tusche); border-bottom-color: var(--linie); }
+.hauptmenue__link[aria-current="page"] {
+  color: var(--tusche);
+  border-bottom-color: var(--akzent-voll);
+}
+
+/* --- Auftakt ------------------------------------------------------------- */
+
+.auftakt { padding: clamp(3.5rem, 9vw, 7rem) 0 clamp(2rem, 5vw, 3.5rem); }
+
+.augenmass {
+  display: block;
+  font-family: var(--grotesk);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--akzent);
+  margin-bottom: 1.5rem;
+}
+
+.grosstitel {
+  margin: 0;
+  font-size: clamp(2.3rem, 6.2vw, 4.25rem);
+  max-width: 20ch;
+}
+.grosstitel em { font-style: italic; }
+
+.auftakt__text {
+  margin: 1.75rem 0 0;
+  max-width: 56ch;
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+  color: var(--tusche-matt);
+}
+
+/* --- Abschnitte ---------------------------------------------------------- */
+
+.band { padding: var(--luft) 0; }
+.band--tief { background: var(--papier-tief); }
+.band--linie { border-top: 1px solid var(--linie-fein); }
+.band--eng { padding: clamp(2.5rem, 5vw, 4rem) 0; }
+
+/* Zweispaltiger Satz: links die Marginalie, rechts der Text. */
+.satz {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 1rem 3.5rem;
+  align-items: start;
+}
+.satz__marginalie {
+  font-family: var(--grotesk);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tusche-matt);
+  margin: 0.55rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--akzent-voll);
+}
+.satz__inhalt { max-width: 66ch; }
+.satz__inhalt > :first-child { margin-top: 0; }
+
+.titel {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  max-width: 24ch;
+}
+.zwischentitel {
+  margin: 2.5rem 0 0.8rem;
+  font-size: 1.2rem;
+}
+
+.vorspann {
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+  line-height: 1.55;
+  max-width: 46ch;
+}
+
+.mager { color: var(--tusche-matt); }
+.abstand-oben { margin-top: 2rem; }
+
+/* --- Listen -------------------------------------------------------------- */
+
+.liste { list-style: none; margin: 0; padding: 0; }
+.liste li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--linie-fein);
+}
+.liste li:first-child { border-top: 1px solid var(--linie-fein); }
+
+.punktliste { margin: 0; padding-left: 1.15rem; }
+.punktliste li { margin-bottom: 0.4rem; }
+.punktliste li::marker { color: var(--akzent-voll); }
+
+.spalten {
+  display: grid;
+  gap: 2rem 3.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.spalten--zwei { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+.rubrik {
+  margin: 0 0 0.9rem;
+  font-family: var(--grotesk);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--akzent);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--linie);
+}
+
+/* --- Bilder -------------------------------------------------------------- */
+
+figure { margin: 0; }
+
+.tafel img { width: 100%; }
+.tafel figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--tusche-matt);
+  max-width: 46ch;
+}
+.tafel__nummer {
+  font-family: var(--grotesk);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--akzent);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* Versetztes Bilderpaar - die zweite Tafel sitzt tiefer. Immer genau zwei
+   Spalten, damit der Versatz als Paar lesbar bleibt und nicht bei drei
+   Spalten zufaellig wirkt. */
+.versatz {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 3rem;
+  align-items: start;
+}
+.versatz > :nth-child(even) { margin-top: clamp(0rem, 6vw, 4.5rem); }
+
+.reihe {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem 3rem;
+}
+
+/* --- Projektuebersicht --------------------------------------------------- */
+
+.uebersicht {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2rem 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 199px));
+}
+.uebersicht li { max-width: 199px; }
+.uebersicht img {
+  width: 100%;
+  filter: none;
+}
+.uebersicht__kuerzel {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--akzent);
+}
+.uebersicht__text {
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--tusche-matt);
+}
+
+/* --- Zahl ---------------------------------------------------------------- */
+
+.zahl {
+  font-family: var(--serife);
+  font-size: clamp(4rem, 13vw, 8.5rem);
+  line-height: 0.9;
+  margin: 0;
+  color: var(--tusche);
+}
+.zahl__einheit {
+  display: block;
+  font-family: var(--grotesk);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--akzent);
+  margin-top: 0.9rem;
+}
+
+.zitat {
+  font-family: var(--serife);
+  font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+  line-height: 1.3;
+  margin: 0;
+  max-width: 22ch;
+}
+.zitat__quelle {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--grotesk);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tusche-matt);
+}
+
+/* --- Tabellenartige Angaben ---------------------------------------------- */
+
+.angaben { margin: 0; }
+.angaben__paar {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--linie-fein);
+}
+.angaben dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tusche-matt);
+  padding-top: 0.3rem;
+}
+.angaben dd { margin: 0; }
+
+address { font-style: normal; }
+
+.werdegang { list-style: none; margin: 0; padding: 0; }
+.werdegang li {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 0.2rem 2rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--linie-fein);
+}
+.werdegang__zeit {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--akzent);
+  white-space: nowrap;
+  padding-top: 0.2rem;
+}
+
+.kundenliste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 3 15rem;
+  column-gap: 3rem;
+}
+.kundenliste li {
+  break-inside: avoid;
+  padding: 0.3rem 0;
+  font-size: 0.92rem;
+  color: var(--tusche-matt);
+  border-bottom: 1px solid var(--linie-fein);
+}
+
+.presseliste { list-style: none; margin: 0; padding: 0; }
+.presseliste li {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 0.2rem 2rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--linie-fein);
+}
+.presseliste__datum {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--akzent);
+  padding-top: 0.25rem;
+}
+.presseliste__quelle {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--tusche-matt);
+}
+
+/* --- Verweis auf die naechste Seite -------------------------------------- */
+
+.weiterlesen {
+  display: inline-block;
+  margin-top: 1.75rem;
+  font-family: var(--grotesk);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--tusche);
+  border-bottom: 1px solid var(--akzent-voll);
+  padding-bottom: 0.3rem;
+}
+.weiterlesen:hover { color: var(--akzent); }
+
+.merkkasten {
+  border-left: 2px solid var(--akzent-voll);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  color: var(--tusche-matt);
+  font-size: 0.95rem;
+  max-width: 60ch;
+}
+.merkkasten p { margin: 0; }
+.merkkasten p + p { margin-top: 0.7rem; }
+
+/* --- Rechtstexte --------------------------------------------------------- */
+
+.rechtstext { max-width: 68ch; }
+.rechtstext h2 { margin-top: 2.5rem; font-size: 1.25rem; }
+.rechtstext h3 { margin-top: 1.6rem; font-size: 1.05rem; }
+.rechtstext ul { padding-left: 1.15rem; }
+
+/* --- Fuss ---------------------------------------------------------------- */
+
+.fuss {
+  margin-top: var(--luft);
+  border-top: 1px solid var(--linie);
+  background: var(--papier-tief);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 2.5rem;
+  font-size: 0.9rem;
+  color: var(--tusche-matt);
+}
+.fuss__oben {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--linie);
+}
+.fuss h2 {
+  font-family: var(--grotesk);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tusche);
+  margin: 0 0 0.8rem;
+}
+.fuss a { color: var(--tusche-matt); }
+.fuss a:hover { color: var(--akzent); }
+.fuss__liste { list-style: none; margin: 0; padding: 0; }
+.fuss__liste li { padding: 0.2rem 0; }
+.fuss__liste a { text-decoration: none; }
+.fuss__unten {
+  padding-top: 1.5rem;
+  font-size: 0.8rem;
+}
+.fuss__unten p { margin: 0 0 0.4rem; }
+
+/* --- Schmale Ansicht ----------------------------------------------------- */
+
+@media (max-width: 940px) {
+  .kopf__innen { flex-wrap: wrap; }
+  .menueknopf { display: inline-flex; }
+  .hauptmenue { flex-basis: 100%; display: none; }
+  .hauptmenue[data-offen="ja"] { display: block; }
+  .hauptmenue__liste {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 1rem;
+    border-top: 1px solid var(--linie-fein);
+  }
+  .hauptmenue__link {
+    display: block;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--linie-fein);
+  }
+  .satz { grid-template-columns: 1fr; gap: 0.5rem; }
+  .satz__marginalie { max-width: 12rem; }
+}
+
+@media (max-width: 720px) {
+  .marke { font-size: 1.2rem; }
+  .marke__zusatz { font-size: 0.6rem; letter-spacing: 0.1em; }
+  .werdegang li,
+  .presseliste li { grid-template-columns: 1fr; }
+  .angaben__paar { grid-template-columns: 1fr; gap: 0.1rem; }
+  .kundenliste { columns: 1; }
+  .versatz { grid-template-columns: 1fr; }
+  .versatz > :nth-child(even) { margin-top: 0; }
+}
+
+.kein-js .hauptmenue { display: block; }
+.kein-js .menueknopf { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+@media print {
+  .kopf, .sprunglink { display: none; }
+  body { background: #fff; color: #000; }
+}
